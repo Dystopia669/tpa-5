@@ -50,16 +50,16 @@ router.get("/getTodo/:id", async (req, res) => {
     }
 })
 // mengubah todo
-router.put("/updateTodo/:id",validationToken, async (req, res) => {
+router.put("/updateTodo/:id", async (req, res) => {
     var updateTodo = {_id: req.params.id}
     try {
         todo.updateOne(updateTodo, req.body)
     .then(doc => {
-        if(doc){
-            return res.status(200).json(doc)
+        if(!doc){
+            res.status(404)
         }
         else {
-            res.status(404)
+            return res.status(200).json(doc)
         }
     })  
     } catch (error) {
